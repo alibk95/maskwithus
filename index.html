@@ -82,7 +82,11 @@
 	      grabCursor: true,
 	      centeredSlides: true,
 	      slidesPerView: 'auto',
-	      mousewheel: true,
+	      mousewheel: {
+	      	releaseOnEdges: false,
+	      	sensitivity: 0.5,
+	      },
+	      preloadImages: true,
 	      loop: true,
 	      freeMode: true,
 	      freeModeSticky: true,
