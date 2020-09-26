@@ -5,14 +5,83 @@
 	<title>MASKwithUS</title>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="swiper.min.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+}
+
+/* The grid: Four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8; 
+  cursor: pointer; 
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The expanding image container */
+.container {
+  position: relative;
+  display: none;
+}
+
+/* Expanding image text */
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+/* Closable button inside the expanded image */
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+</style>
+
 </head>
-<body>
+<body style="background-color: #444">
 	<div class="swiper-container">
 		<div class="swiper-wrapper">
 			<div class="swiper-slide">
 				<div class="card">
 					<div class="image-box">
-						<img src="img/mask4.jpeg" class="mask-img">
+						<a role="button" data-id="Mask1" data-title="Mask1" data-image="https://via.placeholder.com/350" data-overview="Mask1" data-toggle="modal" data-target="#myModal"><img src="img/mask4.jpeg" class="mask-img"></a>
 					</div>
 				</div>
 			</div>
@@ -75,6 +144,57 @@
 
 		</div>
 	</div>
+
+
+	<div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+          <div id="title"></div>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <p>
+
+        	<div style="text-align:center">
+  <h2>Tabbed Image Gallery</h2>
+  <p>Click on the images below:</p>
+</div>
+
+<!-- The four columns -->
+<div class="row">
+  <div class="column">
+    <img src="img/cat2.jpg" alt="Nature" style="width:100%" onclick="myFunction(this);">
+  </div>
+  <div class="column">
+    <img src="img/cat3.jpg" alt="Snow" style="width:100%" onclick="myFunction(this);">
+  </div>
+  <div class="column">
+    <img src="img/cat2.jpg" alt="Mountains" style="width:100%" onclick="myFunction(this);">
+  </div>
+  <div class="column">
+    <img src="img/cat2.jpg" alt="Lights" style="width:100%" onclick="myFunction(this);">
+  </div>
+</div>
+
+<div class="container">
+  <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+  <img id="expandedImg" style="width:100%">
+  <div id="imgtext"></div>
+</div>
+
+          <div id="overview"></div>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
 	<script src="swiper.min.js"></script>
 	<script>
 	    var swiper = new Swiper('.swiper-container', {
@@ -104,7 +224,27 @@
 	        el: '.swiper-pagination',
 	      },
 	    });
+	    $('#myModal').on('show.bs.modal', function(event) {
+  			var button = $(event.relatedTarget) // Button that triggered the modal
+  			var title = button.data('title')
+  			var overview = button.data('overview')
+  			var image = button.data('image')
+  			var modal = $(this)
+  			modal.find('#title').text(title)
+			modal.find('#image').attr('src', image)
+  			modal.find('#overview').text(overview)
+		})
   </script>
-  <script type="text/javascript" src="https://apiv2.popupsmart.com/api/Bundle/356708" async> </script>
+
+  <script>
+function myFunction(imgs) {
+  var expandImg = document.getElementById("expandedImg");
+  var imgText = document.getElementById("imgtext");
+  expandImg.src = imgs.src;
+  imgText.innerHTML = imgs.alt;
+  expandImg.parentElement.style.display = "block";
+}
+</script>
+  
 </body>
 </html>
